@@ -3,6 +3,9 @@
 # Re-use some methods from the pygeode.formats.netcdf module.
 from pygeode.formats.netcdf import override_values, dims2axes
 
+import six
+
+
 # constructor for the dims (wrapper for NCDim so it's only created once)
 def make_dim (name, size, dimdict={}):
   from pygeode.formats.netcdf import NCDim
@@ -17,7 +20,7 @@ def make_atts (v):
     att = v.getncattr(name)
     # netcdf4-python module in Python 2 uses unicode instead of strings.
     # Need to force this back to string type.
-    if isinstance(att,unicode):
+    if isinstance(att,six.text_type):
       att = str(att)
     atts[str(name)] = att
   return atts

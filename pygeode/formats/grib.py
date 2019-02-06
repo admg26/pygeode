@@ -350,7 +350,7 @@ international_params = {
     129:	("Mean Sea Level Pressure (MAPS System Reduction)",	"Pa",	"MSLMA"),
     130:	("Mean Sea Level Pressure (NAM Model Reduction)",	"Pa",	"MSLET"),
     131:	("Surface lifted index",	"K",	"LFT_X"),
-    132:	("Best (4 layer) lifted index",	"K",	"4LFTX"),
+    132:	("Best (4 layer) lifted index",	"K",	"4FTX"),
     133:	("K index",	"K",	"K_X"),
     134:	("Sweat index",	"K",	"S_X"),
     135:	("Horizontal moisture divergence",	"kg/kg/s",	"MCONV"),

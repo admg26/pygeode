@@ -222,7 +222,7 @@ class View:
 
     # If the shape is degenerate, then we can just return the empty array here
     if any(s == 0 for s in newview.shape):
-#      print 'FAIL:'
+#      print('FAIL:')
 #      print 'input var:', repr(var), var.axes
 #      print 'view:', self.axes, self.slices
 #      print 'mapped view:', newview.axes, newview.slices
@@ -297,7 +297,7 @@ class View:
 
     # conform the array to the view shape
     if conform is True:
-#      print "conforming!"
+#      print("conforming!")
 #      print "order from %s to %s is %s"%(self.axes,var.axes,order)
       values = values.transpose([o for o in order if o > -1])
       assert len(self.shape) == len(order)

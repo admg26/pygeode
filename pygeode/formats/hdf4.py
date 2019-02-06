@@ -200,7 +200,7 @@ def open (filename, value_override = {}, dimtypes = {}, namemap = {},  varlist =
     s.values = empty(s.shape, numpy_type[s.type])
     load_values (s.sds_id, [0], s.shape, s.values)
 
-  #for s in dimsds: print s; print s.values
+  #for s in dimsds: print s; print(s.values)
 
   # Create axis objects
   from pygeode.axis import NamedAxis

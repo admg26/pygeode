@@ -116,7 +116,7 @@ def open(filename, format = None, value_override = {}, dimtypes = {}, namemap = 
     3. a tuple of an axis class and a dictionary with keyword arguments to pass to that axis' constructor              
 
     If dimtypes is not specified, an attempt is made to automatically identify the axis types (see optional
-    `cfmeta` argument below)
+    ``cfmeta`` argument below)
 
   namemap : dict, optional
     A dictionary to map variable names as specified in the file (keys) to PyGeode variable names

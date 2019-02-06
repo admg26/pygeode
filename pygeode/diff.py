@@ -2,6 +2,10 @@
 
 from pygeode.var import Var
 from functools import reduce
+
+from six.moves import reduce
+
+
 class ForwardDifferenceVar (Var):
   '''Forward difference variable.'''
 

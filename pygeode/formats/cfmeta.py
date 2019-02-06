@@ -17,6 +17,10 @@ del pkg_resources
 # Wrapper for replacing a variable's axes with new ones
 # (the axes must be in 1:1 correspondence with the old ones)
 from pygeode.var import Var
+
+import six
+
+
 class var_newaxes (Var):
   def __init__(self, var, newaxes, name=None, fillvalue=None, scale=None, offset=None, atts={}, plotatts={}):
     from pygeode.var import Var, copy_meta 
@@ -462,7 +466,7 @@ def decode_cf (dataset, ignore=[]):
   # Extract to a list first, then back to a dataset
   # (ensures the dataset axis list is up to date)
   for i,oldvar in enumerate(list(varlist)):
-#    name = [n for n,v in dataset.vardict.iteritems() if v is oldvar].pop()
+#    name = [n for n,v in six.iteritems(dataset.vardict) if v is oldvar].pop()
     name = oldvar.name
     atts = oldvar.atts.copy()
     plotatts = oldvar.atts.copy()

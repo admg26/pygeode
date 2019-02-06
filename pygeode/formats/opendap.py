@@ -50,7 +50,7 @@ def write_xdr(var, wfile):
   import numpy as np
   from pygeode.view import View
 
-  lenstr = struct.pack('!2l', var.size, var.size)
+  lenstr = struct.pack('!2', var.size, var.size)
   wfile.write(lenstr)
 
   # Break the values into memory-friendly chunks
@@ -475,7 +475,7 @@ class DAP_Dir (Dir):
 #          print "relpath '%s' matches node named '%s'"%(relpath,name)
           return node.handle (h, relpath, headeronly=headeronly)  # The user tried to load the data in a web browser?
       # Otherwise, try it as a directory name or other object??  (fall back to Dir behaviour?)
-#      print "deferring to Dir.handle"
+#      print("deferring to Dir.handle")
       Dir.handle(self, h, relpath, headeronly=headeronly)
 
 
@@ -569,7 +569,7 @@ class tokenize:
     return t
 #  psyco.bind(next)
   def expect (self, e):
-    t = self.next()
+    t = next(self)
     if t.lower() != e.lower():
       raise Exception ("expected '%s', found '%s'"%(e,t))
 #  psyco.bind(expect)
@@ -577,20 +577,20 @@ class tokenize:
 def parse_array (s):
   # Return a list of tuples, of the form (daptype, name, dimnames, shape)
 
-  daptype = s.next().lower()
+  daptype = next(s).lower()
   assert daptype in list(dap2np.keys()), "unknown type '%s'"%daptype
 
-  name = s.next()
+  name = next(s)
 
   dimnames = []
   shape = []
   
   while True:
-    t = s.next()
+    t = next(s)
     if t == ";": return (daptype, name, dimnames, shape)
 
     assert t == "[", "unknown syntax"
-    size = s.next()
+    size = next(s)
     try:
       shape.append(int(size))
       dimnames.append(None)
@@ -598,7 +598,7 @@ def parse_array (s):
       dimname = size
       dimnames.append(dimname)
       s.expect("=")
-      size = int(s.next())
+      size = int(next(s))
       shape.append(size)
     s.expect ("]")
 
@@ -622,7 +622,7 @@ def parse_grid (s):
     assert msize == size, "dimension size does not match"
 
   s.expect ("}")
-  name = s.next()
+  name = next(s)
   assert name == arr[1], "%s != %s"%(name,arr[1])
   s.expect (";")
   return arr
@@ -642,7 +642,7 @@ def parse_dataset (s):
     t = s.peek()
 
     if t == '}':
-      s.next()
+      next(s)
       return out
 
     #atomic/array?
@@ -662,18 +662,18 @@ def parse_attributes (s):
   atts = []
   # Loop over all variables
   while s.peek() != "}":
-    varname = s.next()
+    varname = next(s)
     varatts = []
     atts.append([varname, varatts])
     s.expect("{")
     # Loop over all attributes
     while s.peek() != "}":
-      daptype = s.next().lower()
-      attname = s.next()
+      daptype = next(s).lower()
+      attname = next(s)
       attvalue = []
       # Load array?
       while s.peek() != ";":
-        x = s.next()
+        x = next(s)
         # cast into the proper type
         if daptype == "string":
           pass
@@ -746,7 +746,7 @@ def load_array (url):
   size = int(np.product(shape))
   assert size > 0
 
-  length, length2 = struct.unpack('!2l', xdr[:8])
+  length, length2 = struct.unpack('!2', xdr[:8])
   assert length == length2, "bad xdr length: %i != %i"%(length,length2)
   assert length == size, "expected size %i, found %i"%(size,length)
 

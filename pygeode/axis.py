@@ -222,10 +222,10 @@ class Axis(Var):
     if self is other: return True
     # incomparable?
     if not isinstance(other,Axis):
-#      print 'not an axis?'
+#      print('not an axis?')
       return False
     if not self.isparentof(other) and not other.isparentof(self):
-#      print 'parent issues'
+#      print('parent issues')
       return False
 
     # If they are generic Axis objects, an additional requirement is that they have the same name
@@ -234,13 +234,13 @@ class Axis(Var):
 
     # Check if they have the same lengths
     if len(self.values) != len(other.values):
-#      print 'false by length'
+#      print('false by length')
       return False
 
     # Check the values
     from numpy import allclose
     if not allclose(self.values, other.values):
-#      print 'values mismatch'
+#      print('values mismatch')
       return False
 
     # Check auxiliary attributes
@@ -250,7 +250,7 @@ class Axis(Var):
 
     # Check any associated arrays
     if set(self.auxarrays.keys()) != set(other.auxarrays.keys()):
-#      print 'false by mismatched set of auxarrays'
+#      print('false by mismatched set of auxarrays')
       return False
 
     # Check values of associated arrays
@@ -332,7 +332,7 @@ class Axis(Var):
     >>> x = Lat([30,20,10])
     >>> print x 
     >>> y = x.sorted() 
-    >>> print y
+    >>> print(y)
 
     See Also
     --------
@@ -362,12 +362,12 @@ class Axis(Var):
       --------
       >>> from pygeode import Lat
       >>> x = Lat([20,30,10])
-      >>> print x
+      >>> print(x)
       lat <Lat>      :  20 N to 10 N (3 values)
       >>> indices = x.argsort()
-      >>> print indices
+      >>> print(indices)
       [2 0 1]
-      >>> print x.slice[indices]
+      >>> print(x.slice[indices])
       lat <Lat>      :  10 N to 30 N (3 values)
 
 
@@ -792,11 +792,11 @@ class Lon (XAxis):
     Examples
     --------
     >>> from pygeode.tutorial import t1
-    >>> print t1.lon.formatvalue(270)
+    >>> print(t1.lon.formatvalue(270))
       270 E
-    >>> print t1.lon.formatvalue(-20.346, '%.4gE')
+    >>> print(t1.lon.formatvalue(-20.346, '%.4gE'))
       20.35W
-    >>> print t1.lon.formatvalue(-192.4, '%.3g')
+    >>> print(t1.lon.formatvalue(-192.4, '%.3g'))
       -192
     '''
     if fmt is None: fmt = self.formatstr
@@ -889,11 +889,11 @@ class Lat (YAxis):
     Examples
     --------
     >>> from pygeode.tutorial import t1
-    >>> print t1.lat.formatvalue(0)
+    >>> print(t1.lat.formatvalue(0))
       EQ
-    >>> print t1.lat.formatvalue(-43.61, '%.3gN')
+    >>> print(t1.lat.formatvalue(-43.61, '%.3gN'))
       43.6S
-    >>> print t1.lat.formatvalue(-43.61, '%.3g')
+    >>> print(t1.lat.formatvalue(-43.61, '%.3g'))
       -43.6
     '''
 
@@ -1070,13 +1070,13 @@ class Pres (ZAxis):
     Examples
     --------
     >>> from pygeode.tutorial import t2
-    >>> print t2.pres.formatvalue(1000)
+    >>> print(t2.pres.formatvalue(1000))
       1000 hPa
-    >>> print t2.pres.formatvalue(1.52)
+    >>> print(t2.pres.formatvalue(1.52))
       1.5 hPa
-    >>> print t2.pres.formatvalue(20, '%.1g')
+    >>> print(t2.pres.formatvalue(20, '%.1g'))
       2e+01 hPa
-    >>> print t2.pres.formatvalue(20, '%.1g<10')
+    >>> print(t2.pres.formatvalue(20, '%.1g<10'))
       20 hPa
     '''
 

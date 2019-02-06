@@ -39,8 +39,8 @@ try:
       return True
 
     def finish(self): # Overloaded to fix unneccesary newlines when not displayed
-      if self.finished: return
-      else: self.finished = True
+      if not self.end_time: return
+      else: super().finish()
       self.update(self.maxval)
       #if self.seconds_elapsed < _NOSHOWTIME: self.fd.write('\n')
 
@@ -75,7 +75,7 @@ class PBar:
     y = min(y,100)
     if self.pbar is not None:
       self.pbar.update(y)
-      if y == 100 and not self.pbar.finished: self.pbar.finish()
+      if y == 100 and self.pbar.end_time: self.pbar.finish()
 
   def subset(self, L, U):
     lower = self.lower

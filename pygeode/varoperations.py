@@ -92,7 +92,7 @@ def extend (self, pos, *newaxes):
   Examples
   --------
   >>> from pygeode.tutorial import t1
-  >>> print t1.Temp
+  >>> print(t1.Temp)
   <Var 'Temp'>:
     Shape:  (lat,lon)  (32,64)
     Axes:
@@ -103,10 +103,10 @@ def extend (self, pos, *newaxes):
     Type:  Var (dtype="float64")
   >>> from pygeode import Pres
   >>> paxis = Pres([1000,850,700])  # Create a pressure axis
-  >>> print paxis
+  >>> print(paxis)
   pres <Pres>    :  1000  hPa to 700  hPa (3 values)
   >>> extended_var = t1.Temp.extend(0, paxis)  # Extend the data with this axis
-  >>> print extended_var
+  >>> print(extended_var)
   <Var 'Temp'>:
     Shape:  (pres,lat,lon)  (3,32,64)
     Axes:
@@ -147,7 +147,7 @@ def transpose (self, *axes):
   Examples
   --------
   >>> from pygeode.tutorial import t1
-  >>> print t1.Temp
+  >>> print(t1.Temp)
   <Var 'Temp'>:
     Shape:  (lat,lon)  (32,64)
     Axes:
@@ -157,7 +157,7 @@ def transpose (self, *axes):
       {'units': 'K'}
     Type:  Var (dtype="float64")
   >>> transposed_var = t1.Temp.transpose('lon','lat')
-  >>> print transposed_var
+  >>> print(transposed_var)
   <Var 'Temp'>:
     Shape:  (lon,lat)  (64,32)
     Axes:
@@ -216,7 +216,7 @@ def sorted (self, *iaxes, **kwargs):
   Examples
   --------
   >>> from pygeode.tutorial import t2
-  >>> print t2.Temp
+  >>> print(t2.Temp)
   <Var 'Temp'>:
     Shape:  (time,pres,lat,lon)  (3650,20,32,64)
     Axes:
@@ -348,7 +348,7 @@ def replace_axes (self, axisdict={}, ignore_mismatch=False, newaxes=None, keep_o
   Examples
   --------
   >>> from pygeode.tutorial import t1
-  >>> print t1.Temp
+  >>> print(t1.Temp)
   <Var 'Temp'>:
     Shape:  (lat,lon)  (32,64)
     Axes:
@@ -359,7 +359,7 @@ def replace_axes (self, axisdict={}, ignore_mismatch=False, newaxes=None, keep_o
     Type:  Var (dtype="float64")
   >>> from pygeode import XAxis, YAxis
   >>> new_var = t1.Temp.replace_axes(lon=XAxis, lat=YAxis)
-  >>> print new_var
+  >>> print(new_var)
   <Var 'Temp'>:
     Shape:  (lat,lon)  (32,64)
     Axes:
@@ -369,7 +369,7 @@ def replace_axes (self, axisdict={}, ignore_mismatch=False, newaxes=None, keep_o
       {'units': 'K'}
     Type:  Replace_axes (dtype="float64")
   >>> new_var = t1.Temp.replace_axes(lon=XAxis, lat=YAxis, keep_old_name=False)
-  >>> print new_var
+  >>> print(new_var)
   <Var 'Temp'>:
     Shape:  (yaxis,xaxis)  (32,64)
     Axes:
@@ -448,7 +448,7 @@ def rename_axes (self, ignore_mismatch=False, axisdict={}, **namemap):
   Examples
   --------
   >>> from pygeode.tutorial import t1
-  >>> print t1.Temp
+  >>> print(t1.Temp)
   <Var 'Temp'>:
     Shape:  (lat,lon)  (32,64)
     Axes:
@@ -458,7 +458,7 @@ def rename_axes (self, ignore_mismatch=False, axisdict={}, **namemap):
       {'units': 'K'}
     Type:  Var (dtype="float64")
   >>> new_var = t1.Temp.rename_axes(lat="latitude",lon="longitude")
-  >>> print new_var
+  >>> print(new_var)
   <Var 'Temp'>:
     Shape:  (latitude,longitude)  (32,64)
     Axes:

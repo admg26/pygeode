@@ -73,11 +73,15 @@ def to_xarray(dataset):
 def _fix_atts (atts):
   atts = dict((str(k),v) for k,v in atts.items())
   for k,v in list(atts.items()):
-    if isinstance(v,unicode):
+    if isinstance(v,six.text_type):
       atts[k] = str(v)
   return atts
 
 from pygeode.var import Var
+
+import six
+
+
 class XArray_DataArray(Var):
   """
   A wrapper for accessing xarray.DataArray objects as pygeode.Var objects.

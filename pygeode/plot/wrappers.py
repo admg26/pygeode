@@ -224,7 +224,7 @@ class Plot(PlotOp):
 # {{{
   def render (self, axes):
     axes.plot (*self.plot_args, **self.plot_kwargs)
-    #print 'Autoscaling.'
+    #print('Autoscaling.')
     #axes.autoscale_view()
 # }}}
 

@@ -167,8 +167,8 @@ class Var(object):
     # assigned explicit attributes were sharing the same dict, so any post-init
     # modifications would be applied to *all* such vars!
 #    if self.naxes == 0:
-#      print 'STOP!'
-#      print 'Hammer time'
+#      print('STOP!')
+#      print('Hammer time')
 #      raise Exception("You can't touch this")
 
 #    # Shortcuts to the axes, referenced by name
@@ -220,7 +220,7 @@ class Var(object):
     Examples
     --------
     >>> from pygeode.tutorial import t1
-    >>> print t1.Temp
+    >>> print(t1.Temp)
     <Var 'Temp'>:
       Units: K  Shape:  (lat,lon)  (31,60)
       Axes:
@@ -229,7 +229,7 @@ class Var(object):
       Attributes:
         {}
       Type:  Add_Var (dtype="float64")
-    >>> print t1.Temp.slice[10:-10, ::10]
+    >>> print(t1.Temp.slice[10:-10, ::10])
     <Var 'Temp'>:
       Units: K  Shape:  (lat,lon)  (11,6)
       Axes:
@@ -238,7 +238,7 @@ class Var(object):
       Attributes:
         {}
       Type:  SlicedVar (dtype="float64")
-    >>> print t1.Temp.slice[17, :]
+    >>> print(t1.Temp.slice[17, :])
     <Var 'Temp'>:
       Units: K  Shape:  (lat,lon)  (1,60)
       Axes:
@@ -283,9 +283,9 @@ class Var(object):
     Examples
     --------
     >>> from pygeode.tutorial import t1
-    >>> print t1.Temp[:].shape
+    >>> print(t1.Temp[:].shape)
     (31, 60)
-    >>> print t1.Temp[20:-6, ::12]
+    >>> print(t1.Temp[20:-6, ::12])
     [[ 285.64721554  287.07380031  286.52889342  284.76553766  284.22063076]
      [ 281.09169696  282.80359869  282.14971042  280.03368351  279.37979523]
      [ 276.73945224  278.73667093  277.97380127  275.50510321  274.74223356]
@@ -358,10 +358,10 @@ class Var(object):
     Examples
     --------
     >>> from pygeode.tutorial import t1
-    >>> print t1.vars
+    >>> print(t1.vars)
     [<Var 'Temp'>]
     >>> T = t1.Temp
-    >>> print T
+    >>> print(T)
     <Var 'Temp'>:
       Shape:  (lat,lon)  (32,64)
       Axes:
@@ -534,13 +534,13 @@ class Var(object):
     --------
     >>> from pygeode.tutorial import t1
     >>> T = t1.Temp
-    >>> print T.axes
+    >>> print(T.axes)
     (<Lat>, <Lon>)
-    >>> print T.whichaxis('lat')
+    >>> print(T.whichaxis('lat'))
     0
-    >>> print T.whichaxis('lon')
+    >>> print(T.whichaxis('lon'))
     1
-    >>> print T.whichaxis('time')
+    >>> print(T.whichaxis('time'))
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
       File "/usr/local/lib/python2.6/dist-packages/pygeode/var.py", line 352, in whichaxis
@@ -688,7 +688,7 @@ class Var(object):
     Examples
     --------
     >>> from pygeode.tutorial import t1
-    >>> print t1.Temp
+    >>> print(t1.Temp)
     <Var 'Temp'>:
       Shape:  (lat,lon)  (32,64)
       Axes:
@@ -698,7 +698,7 @@ class Var(object):
         {'units': 'K'}
       Type:  Var (dtype="float64")
     >>> x = t1.Temp.get()
-    >>> print x
+    >>> print(x)
     [[ 261.05848727  259.81373805  258.6761858  ...,  264.37317879
        263.44078874  262.30323649]
      [ 261.66049058  260.49545075  259.43074336 ...,  264.76292084
@@ -832,6 +832,7 @@ def combine_meta (invars, outvar):
 from numpy import ndarray as nd
 from pygeode.ufunc import wrap_unary, wrap_binary
 from functools import reduce
+from six.moves import reduce
 Var.__add__  = wrap_binary(nd.__add__,  symbol='+')
 Var.__radd__ = wrap_binary(nd.__radd__, symbol='+')
 Var.__sub__  = wrap_binary(nd.__sub__,  symbol='-')

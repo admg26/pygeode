@@ -678,6 +678,10 @@ def _domain_as_dataset (domain, atts, table, axis_manager):
 # Wrap a variable from a domain into a Var object
 from pygeode.var import Var
 from functools import reduce
+
+from six.moves import reduce
+
+
 class _DataVar(Var):
   @classmethod
   def construct (cls, varname, axes, atts, table, axis_manager):

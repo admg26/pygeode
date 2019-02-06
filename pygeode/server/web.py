@@ -1,6 +1,5 @@
 
 
-from BaseHTTPServer import HTTPServer
 from SocketServer import ThreadingMixIn
 class ThreadedHTTPServer (ThreadingMixIn, HTTPServer):
   pass
@@ -9,7 +8,6 @@ class ThreadedHTTPServer (ThreadingMixIn, HTTPServer):
 del ThreadingMixIn
 
 
-from BaseHTTPServer import BaseHTTPRequestHandler
 class MyHandler (BaseHTTPRequestHandler):
   protocol_version = "HTTP/1.1"
   def do_GET (self):
@@ -60,6 +58,11 @@ del HTTPServer
 """
 
 from pygeode.server.daemon import Daemon
+from six.moves.BaseHTTPServer import HTTPServer
+
+from six.moves.BaseHTTPServer import BaseHTTPRequestHandler
+
+
 class HTTPDaemon(Daemon):
   def __init__ (self, port, root_handler):
     from pygeode.server.daemon import Daemon

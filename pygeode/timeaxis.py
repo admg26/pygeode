@@ -236,9 +236,9 @@ class Time (TAxis):
     '''return the indices that map common elements from one time axis to another'''
     import numpy as np
 
-#    print 'common_map:'
-#    print self
-#    print other
+#    print('common_map:')
+#    print(self)
+#    print(other)
     assert self.isparentof(other) or other.isparentof(self)
 
     self_f, other_f = self.common_fields(other)
@@ -376,7 +376,7 @@ class CalendarTime(Time):
       # Only use the allowed fields for this (sub)class
       default = dict([k,v] for k,v in default.items() if k in self.allowed_fields)
       startdate = dict(default, **startdate)
-      #for k in startdate.iterkeys():
+      #for k in startdate:
         #assert k in self.allowed_fields, "%s is not an allowed field for %s"%(k,type(self))
       # If any auxiliary arrays are provided, then use only those fields
       if any (a in kwargs for a in self.allowed_fields):
@@ -477,11 +477,11 @@ class CalendarTime(Time):
     Examples
     --------
     >>> from pygeode.tutorial import t2
-    >>> print t2.time.formatvalue(17.25)
+    >>> print(t2.time.formatvalue(17.25))
       Jan 18, 2011 06:00:00
-    >>> print t2.time.formatvalue(0, '$B $d')
+    >>> print(t2.time.formatvalue(0, '$B $d'))
       January 1
-    >>> print t2.time.formatvalue(512, '$d/$m/$y')
+    >>> print(t2.time.formatvalue(512, '$d/$m/$y'))
       28/5/12
     '''
     import numpy as np

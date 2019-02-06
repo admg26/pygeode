@@ -345,7 +345,7 @@ class Multifile_Var (Var):
     times = view.subaxis(Time)
     handled_times = np.zeros([len(times)], dtype='bool')
 
-#    print times
+#    print(times)
 
     # Map these times to values along the 'file' axis
     x = reltime(times, startdate=self.faxis.startdate, units=self.faxis.units)

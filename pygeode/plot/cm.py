@@ -124,7 +124,7 @@ def get_cm(style, ndiv):
 # }}}
 
 cmpdir = pyg._config.get('Plotting', 'cmaps_path')
-#print cmpdir
+#print(cmpdir)
 
 for fn in glob.glob(cmpdir + '*.cmap'):
   name = os.path.splitext(os.path.basename(fn))[0]
