@@ -24,7 +24,7 @@ import sys
 if sys.version_info < (3,):
   progressbar = "progressbar"
 else:
-  progressbar = "progressbar33"
+  progressbar = "progressbar2"
 
 # PyGeode installation script
 
