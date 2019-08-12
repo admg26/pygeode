@@ -12,6 +12,9 @@ def make_dim (name, size, dimdict={}):
 
 # Extract attributes
 def make_atts (v):
+  import sys
+  if sys.version_info[0] >= 3:
+    unicode = str
   atts = dict()
   for name in v.ncattrs():
     att = v.getncattr(name)
@@ -224,7 +227,7 @@ def save (filename, in_dataset, version=4, pack=None, compress=False, cfmeta = T
       dataset =  {key: finalize_save(value, cfmeta, pack) for key, value in in_dataset.items()}
       dataset =  {key: tidy_axes(value, unlimited=unlimited) for key, value in dataset.items()}
       for key, value in dataset.items():
-	group = f.createGroup(key)
+        group = f.createGroup(key)
         write_var(group, value, unlimited=unlimited, compress=compress)
         
     else:
