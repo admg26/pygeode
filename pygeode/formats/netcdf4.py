@@ -15,22 +15,40 @@ def make_dim (name, size, dimdict={}):
 
 # Extract attributes
 def make_atts (v):
+  import sys
+  if sys.version_info[0] >= 3:
+    unicode_type = str
+  else:
+    unicode_type = unicode
   atts = dict()
   for name in v.ncattrs():
     att = v.getncattr(name)
     # netcdf4-python module in Python 2 uses unicode instead of strings.
     # Need to force this back to string type.
-    if isinstance(att,six.text_type):
+    if isinstance(att,unicode_type):
       att = str(att)
     atts[str(name)] = att
   return atts
+
+# Wrapper for netcdf variables.
+# Delegates access to the arrays so they don't get loaded until needed.
+from pygeode.var import Var
+class NCVar(Var):
+  def __init__ (self, axes, name, ncvar, atts):
+    from pygeode.var import Var
+    self._ncvar = ncvar
+    Var.__init__(self, axes=axes, name=name, dtype=ncvar.dtype, atts=atts)
+  def getvalues (self, start, count):
+    sl = [slice(s,s+c) for s,c in zip(start,count)]
+    return self._ncvar[sl]
+del Var
 
 # A netcdf variable
 def make_var (ncvar):
 # {{{
   from pygeode.var import Var
   axes = [make_dim(str(name),size) for name,size in zip(ncvar.dimensions,ncvar.shape)]
-  return Var(axes=axes, name=str(ncvar.name), values=ncvar, atts=make_atts(ncvar))
+  return NCVar(axes=axes, name=str(ncvar.name), ncvar=ncvar, atts=make_atts(ncvar))
 # }}}
 
 # A netcdf variable
@@ -153,7 +171,8 @@ def open(filename, value_override = {}, dimtypes = {}, namemap = {},  varlist = 
   from pygeode.axis import Axis
 
   # Read the file
-  with nc.Dataset(filename,"r") as f:
+  try:
+    f = nc.Dataset(filename,"r")
     if f.groups:
       dataset =  {str(key): make_dataset(value) for key, value in f.groups.items()}
       dataset =  {str(key): dims2axes(value) for key, value in dataset.items()}
@@ -181,6 +200,8 @@ def open(filename, value_override = {}, dimtypes = {}, namemap = {},  varlist = 
       # with the same name as the dimension)
       dataset = dims2axes(dataset)
       return finalize_open(dataset, dimtypes, namemap, varlist, cfmeta)
+  except IOError:  # Problem accessing the file?
+    raise
 # }}}
 
 #TODO: factor out cf-meta encoding and other processing steps
@@ -211,7 +232,7 @@ def save (filename, in_dataset, version=4, pack=None, compress=False, cfmeta = T
       dataset =  {key: finalize_save(value, cfmeta, pack) for key, value in in_dataset.items()}
       dataset =  {key: tidy_axes(value, unlimited=unlimited) for key, value in dataset.items()}
       for key, value in dataset.items():
-	group = f.createGroup(key)
+        group = f.createGroup(key)
         write_var(group, value, unlimited=unlimited, compress=compress)
         
     else:

@@ -11,7 +11,7 @@ class ForwardDifferenceVar (Var):
 
   def __init__ (self, var, axis, n):
   # {{{
-    ''' __init__()'''
+    '''__init__()'''
 
     from pygeode.var import Var
 
@@ -67,7 +67,7 @@ class ForwardDifferenceVar (Var):
     # Define a map back to our points
     getleft = np.searchsorted(allpoints,left)
     # Make this 1D map into the right shape for the view (if multi-dimensional)
-    getleft = [slice(None)]*daxis + [getleft] + [slice(None)]*(self.naxes-daxis-1)
+    getleft = tuple([slice(None)]*daxis + [getleft] + [slice(None)]*(self.naxes-daxis-1))
 
     # Finally, map the data to our points, and return.
     # Hopefully the code above works for all cases (including non-contiguous
@@ -78,6 +78,30 @@ class ForwardDifferenceVar (Var):
 
 def diff(var, axis=0, n=1):
   '''Computes the forward difference along the given axis.
-     Mimics the same behaviour of the numpy 'diff' function.'''
+  Mimics the same behaviour of the :func:`np.diff` function.
+
+  Parameters
+  ----------
+  axis : string, :class:`Axis` class, or int
+    Axis along which to compute differences.
+  n : int (optional)
+    Number of times values are differenced.
+
+  Returns
+  -------
+  dvar : :class:`Var`
+    New variable containing n-th differenced values.
+
+  Examples
+  --------
+  >>> import pygeode as pyg
+  >>> v = pyg.yearlessn(5)
+  >>> v[:]
+  array([0., 1., 2., 3., 4.])
+  >>> v.diff('time')[:]
+  array([1., 1., 1., 1.])
+  >>> v.diff('time', 2)[:]
+  array([0., 0., 0.])
+  '''
   return ForwardDifferenceVar(var, axis, n)
 

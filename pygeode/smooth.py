@@ -80,21 +80,21 @@ class SmoothVar (Var):
       src_shape = indata.shape[:saxis] + (src_saxislen,) + indata.shape[saxis+1:]
       src = np.zeros(src_shape, self.var.dtype)
       sslo[saxis] = slice(mleft_len, src_saxislen - mright_len)
-      src[sslo] = indata
+      src[tuple(sslo)] = indata
 
       # Mirror boundaries, if necessary
       if mleft_len > 0:
         ssli[saxis] = slice(2*mleft_len-1, mleft_len-1,-1)
         sslo[saxis] = slice(0, mleft_len)
-        src[sslo] = src[ssli]
+        src[tuple(sslo)] = src[tuple(ssli)]
 
       # Mirror boundaries, if necessary
       if mright_len > 0:
         ssli[saxis] = slice(-mright_len-1,-2*mright_len-1,-1)
         sslo[saxis] = slice(-mright_len, None)
-        src[sslo] = src[ssli]
+        src[tuple(sslo)] = src[tuple(ssli)]
 
-      out[outsl] = self._convolve(src, self.kernel, 'same')[cnvsl]
+      out[outsl] = self._convolve(src, self.kernel, 'same')[tuple(cnvsl)]
 
     return out
   # }}}
