@@ -1,7 +1,9 @@
 MANIFEST.in
+README.md
 setup.cfg
 setup.py
 pygeode/__init__.py
+pygeode/_version.py
 pygeode/axis.py
 pygeode/climat.py
 pygeode/composite.py

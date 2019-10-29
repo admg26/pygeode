@@ -7,3 +7,4 @@ tests/issues/*.data
 build/
 dist/
 pygeode/plugins/
+pygeode.egg-info/

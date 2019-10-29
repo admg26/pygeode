@@ -1,4 +1,4 @@
-numpy>=1.8
+numpy
 scipy
 matplotlib
-progressbar33
+progressbar2
