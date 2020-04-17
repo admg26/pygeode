@@ -376,6 +376,32 @@ class climatology(Clim,Mean):
   """
   Computes a climatological mean.  Averages over all years, returning a single
   value for each distinct month, day, hour, etc.
+
+  Parameters
+  ----------
+  var: Var
+    A variable with a time axis 
+  
+  Returns
+  -------
+  climat_var : Var
+    The climatology of the variable.
+
+  Examples
+  --------
+  >>> from pygeode.tutorial import t2                                                      
+
+  >>> print(pyg.climatology(t2.Temp))                                                      
+  <Var 'Temp_clim_mean'>:
+    Shape:  (time,pres,lat,lon)  (365,20,31,60)
+    Axes:
+      time <ModelTime365>:  Jan 1,  00:00:00 to Dec 31,  00:00:00 (365 values)
+      pres <Pres>    :  1000 hPa to 50 hPa (20 values)
+      lat <Lat>      :  90 S to 90 N (31 values)
+      lon <Lon>      :  0 E to 354 E (60 values)
+    Attributes:
+      {}
+    Type:  climatology (dtype="float64")
   """
 class dailymean(Daily,Mean):
   """
