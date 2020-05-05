@@ -130,7 +130,7 @@ def correlate(X, Y, axes=None, output = 'r2,p', pbar=None):
 
   den = 1 - rho**2
   # Saturate the denominator (when correlation is perfect) to avoid div by zero warnings
-  eps = np.finfo(float).eps
+  eps = 1e-18
   den[den < eps] = eps
 
   t = np.zeros(oview.shape, 'd')
